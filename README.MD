@@ -14,7 +14,8 @@
 <hr>
 <h3>Getting Started</h3>
 <p>You will need a homebrewed PS3 console that is running the webMAN mod. webMAN needs to be accessible over LAN. To find your PS3 IP go to <code>Settings > Network Settings > Settings and Connection Status List</code>.
-<br>
+<h3>Custom backgrounds</h3>
+<p>webMAN wallpaper accepts custom video/image backgrounds. You must provide the URL. The accepted formats are <code>.mp4, .webm, .ogg, .jpg, .png, .gif, .webp</code>.</p>
 <h3>Modifications</h3>
 <p>Modifications and new features are welcome. You can also republish this on Steam Workstop but please attribute <code>tbwcjw (github)</code> if you do so.</p>
 <p>To view the wallpaper's console output, in Wallpaper engine go to <code>Settings > General > Developers > CEF devtools port</code> and set a port. Devtools will then be accessible in the browser by visiting <code>localhost:[port]</code>. This wallpaper will appear in the list as <code>xmb integration wallpaper</code>.</p>
