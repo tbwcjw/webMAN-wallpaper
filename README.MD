@@ -9,7 +9,7 @@
     <br>
 </p>
 <p align="center">
-    <img src="https://img.shields.io/badge/steam_workshop-tbd-blue">
+    <a href='https://steamcommunity.com/sharedfiles/filedetails/?id=3526987965'><img src="https://img.shields.io/badge/steam_workshop-grey"></a>
 </p>
 <hr>
 <h3>Getting Started</h3>
