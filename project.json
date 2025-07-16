@@ -1,0 +1,135 @@
+{
+	"contentrating" : "Everyone",
+	"description" : "Display statistics from your PS3 by scraping webMAN.\n\nGitHub: https://github.com/tbwcjw/webMAN-wallpaper",
+	"file" : "index.html",
+	"general" : 
+	{
+		"properties" : 
+		{
+			"basics" : 
+			{
+				"index" : 0,
+				"order" : 100,
+				"text" : "Basics",
+				"type" : "group",
+				"value" : ""
+			},
+			"brightness" : 
+			{
+				"fraction" : true,
+				"index" : 8,
+				"max" : 3,
+				"min" : 0,
+				"order" : 108,
+				"precision" : 4,
+				"step" : 0.001,
+				"text" : "Brightness",
+				"type" : "slider",
+				"value" : 1
+			},
+			"color" : 
+			{
+				"index" : 3,
+				"order" : 103,
+				"text" : "Color",
+				"type" : "group",
+				"value" : ""
+			},
+			"grayscale" : 
+			{
+				"fraction" : true,
+				"index" : 4,
+				"max" : 1,
+				"min" : 0,
+				"order" : 104,
+				"precision" : 3,
+				"step" : 0.01,
+				"text" : "Grayscale",
+				"type" : "slider",
+				"value" : 0
+			},
+			"hue" : 
+			{
+				"fraction" : true,
+				"index" : 7,
+				"max" : 359,
+				"min" : 0,
+				"order" : 107,
+				"precision" : 2,
+				"step" : 0.1,
+				"text" : "Hue (deg)",
+				"type" : "slider",
+				"value" : 0
+			},
+			"invertcolors" : 
+			{
+				"index" : 9,
+				"order" : 109,
+				"text" : "Invert Colors",
+				"type" : "bool",
+				"value" : false
+			},
+			"ps3ip" : 
+			{
+				"index" : 1,
+				"order" : 101,
+				"text" : "PS3 IP",
+				"type" : "textinput",
+				"value" : ""
+			},
+			"refreshinterval" : 
+			{
+				"fraction" : true,
+				"index" : 2,
+				"max" : 30,
+				"min" : 5,
+				"order" : 102,
+				"precision" : 1,
+				"step" : 1,
+				"text" : "Refresh Interval (seconds)",
+				"type" : "slider",
+				"value" : 15
+			},
+			"saturation" : 
+			{
+				"fraction" : true,
+				"index" : 6,
+				"max" : 3,
+				"min" : 0,
+				"order" : 106,
+				"precision" : 3,
+				"step" : 0.01,
+				"text" : "Saturation",
+				"type" : "slider",
+				"value" : 1
+			},
+			"schemecolor" : 
+			{
+				"order" : 0,
+				"text" : "ui_browse_properties_scheme_color",
+				"type" : "color",
+				"value" : "0.35294117647058826 0.058823529411764705 0.023529411764705882"
+			},
+			"sepia" : 
+			{
+				"fraction" : true,
+				"index" : 5,
+				"max" : 1,
+				"min" : 0,
+				"order" : 105,
+				"precision" : 3,
+				"step" : 0.01,
+				"text" : "Sepia",
+				"type" : "slider",
+				"value" : 0
+			}
+		}
+	},
+	"preview" : "preview.jpg",
+	"ratingsex" : "none",
+	"ratingviolence" : "none",
+	"tags" : [ "Game" ],
+	"title" : "PS3 webMAN integration",
+	"type" : "web",
+	"version" : 0
+}

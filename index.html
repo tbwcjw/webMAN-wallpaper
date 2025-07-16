@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/style.css" preload>
+  <title>xmb integration wallpaper</title>
+</head>
+<body>
+
+  <video autoplay muted loop id="xmb-bg" preload="auto">
+    <source src="img/xmb_looped.webm" type="video/webm">
+  </video>
+
+  <div class="content">
+    <div class="stats-container">
+        <div class="c"></div>
+        <div class="r"></div>
+        <div class="mem"></div>
+        <div class="hdd"></div>
+        <div class="fan"></div>
+        <div class="uptime"></div>
+        <div class="syscalls"></div>
+    </div>
+  </div>
+  <script src="js/scrape.js"></script>
+</body>
+</html>
