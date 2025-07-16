@@ -20,7 +20,7 @@
 <p>Modifications and new features are welcome. You can also republish this on Steam Workstop but please attribute <code>tbwcjw (github)</code> if you do so.</p>
 <p>To view the wallpaper's console output, in Wallpaper engine go to <code>Settings > General > Developers > CEF devtools port</code> and set a port. Devtools will then be accessible in the browser by visiting <code>localhost:[port]</code>. This wallpaper will appear in the list as <code>xmb integration wallpaper</code>.</p>
 <blockquote>
-    <b>Required file notices</b>
+    <b>Required file notices (FOR BUILDING)</b>
     <p>
         The required <code>xmb_looped.webm</code> can be downloaded seperately from <a href='https://mega.nz/file/bihWCKZa#QF_3KdX51aP3SxBeWD2DmYiRr_9nZPf6Ee2tnqa8csg'>MEGA</a>. It was too large (>100mb) for Github.
     </p>
