@@ -9,7 +9,10 @@
     <br>
 </p>
 <p align="center">
-    <a href='https://steamcommunity.com/sharedfiles/filedetails/?id=3526987965'><img src="https://img.shields.io/badge/steam_workshop-grey"></a>
+    Available from the <a href='https://steamcommunity.com/sharedfiles/filedetails/?id=3528142324'>Steam Workshop</a>.<br>
+    <img alt="Steam Subscriptions" src="https://img.shields.io/steam/subscriptions/3528142324">
+    <img alt="Steam Downloads" src="https://img.shields.io/steam/downloads/3528142324">
+    <img alt="Steam Views" src="https://img.shields.io/steam/views/3528142324">
 </p>
 <hr>
 <h3>Getting Started</h3>
