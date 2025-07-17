@@ -121,7 +121,7 @@ function applyFilters() {
 //blank all .innerhtmls and display error in c
 function setError(message) {
   c.innerHTML = message;
-  r.innerHTML = mem.innerHTML = hdd.innerHTML = fan.innerHTML = syscalls.innerHTML = uptime.innerHTML = '';
+  r.innerHTML = mem.innerHTML = hdd.innerHTML = fan.innerHTML = syscalls.innerHTML = uptime.innerHTML = appname.innerHTML = appimg.src = '';
 }
 
 async function scrape(baseUrl) {
@@ -202,7 +202,6 @@ async function scrape(baseUrl) {
     }
     switch (true) {
       //currently playing appname
-
       case href === '/cpursx.ps3?up': {
         const cpu = text.match(/CPU:\s*(\d+)°C\s*\(MAX:\s*(\d+)°C\)/);
         const rsx = text.match(/RSX:\s*(\d+)°C/);
@@ -295,8 +294,15 @@ function initMonitoring() {
       fan.innerHTML = `FAN SPEED: ${systemStats.fanSpeedPercent ?? 0}%`;
       uptime.innerHTML = `UPTIME: ${systemStats.uptime ?? "00:00:00"}`;
       syscalls.innerHTML = systemStats.syscallsDisabled ? 'SYSCALLS DISABLED' : '';
-      appname.innerHTML = systemStats.appName ?? "";
-      appimg.src = systemStats.imgPath ?? "";
+
+      if(nowPlaying) {
+        appname.innerHTML = systemStats.appName ?? "";
+        appimg.src = systemStats.imgPath ?? "";
+      } else {
+        appimg.src = "";
+        appname.innerHTML = "";
+      }
+      
     } catch (error) {
       console.error('fetch error:', error);
       //blank innerhtmls
