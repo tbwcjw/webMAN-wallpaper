@@ -8,8 +8,8 @@
 		{
 			"about" : 
 			{
-				"index" : 11,
-				"order" : 111,
+				"index" : 12,
+				"order" : 112,
 				"text" : "About",
 				"type" : "group",
 				"value" : ""
@@ -25,10 +25,10 @@
 			"brightness" : 
 			{
 				"fraction" : true,
-				"index" : 9,
+				"index" : 10,
 				"max" : 3,
 				"min" : 0,
-				"order" : 109,
+				"order" : 110,
 				"precision" : 4,
 				"step" : 0.001,
 				"text" : "Brightness",
@@ -37,16 +37,16 @@
 			},
 			"color" : 
 			{
-				"index" : 4,
-				"order" : 104,
+				"index" : 5,
+				"order" : 105,
 				"text" : "Color",
 				"type" : "group",
 				"value" : ""
 			},
 			"custombackground" : 
 			{
-				"index" : 3,
-				"order" : 103,
+				"index" : 4,
+				"order" : 104,
 				"text" : "Custom Wallpaper URL (image/video)",
 				"type" : "textinput",
 				"value" : ""
@@ -54,8 +54,8 @@
 			"github" : 
 			{
 				"condition" : "",
-				"index" : 12,
-				"order" : 112,
+				"index" : 13,
+				"order" : 113,
 				"text" : "Github",
 				"type" : "textinput",
 				"value" : "https://github.com/tbwcjw/webMAN-wallpaper"
@@ -63,10 +63,10 @@
 			"grayscale" : 
 			{
 				"fraction" : true,
-				"index" : 5,
+				"index" : 6,
 				"max" : 1,
 				"min" : 0,
-				"order" : 105,
+				"order" : 106,
 				"precision" : 3,
 				"step" : 0.01,
 				"text" : "Grayscale",
@@ -76,10 +76,10 @@
 			"hue" : 
 			{
 				"fraction" : true,
-				"index" : 8,
+				"index" : 9,
 				"max" : 359,
 				"min" : 0,
-				"order" : 108,
+				"order" : 109,
 				"precision" : 2,
 				"step" : 0.1,
 				"text" : "Hue (deg)",
@@ -88,11 +88,19 @@
 			},
 			"invertcolors" : 
 			{
-				"index" : 10,
-				"order" : 110,
+				"index" : 11,
+				"order" : 111,
 				"text" : "Invert Colors",
 				"type" : "bool",
 				"value" : false
+			},
+			"nowplaying" : 
+			{
+				"index" : 3,
+				"order" : 103,
+				"text" : "Show Now Playing",
+				"type" : "bool",
+				"value" : true
 			},
 			"ps3ip" : 
 			{
@@ -118,10 +126,10 @@
 			"saturation" : 
 			{
 				"fraction" : true,
-				"index" : 7,
+				"index" : 8,
 				"max" : 3,
 				"min" : 0,
-				"order" : 107,
+				"order" : 108,
 				"precision" : 3,
 				"step" : 0.01,
 				"text" : "Saturation",
@@ -138,10 +146,10 @@
 			"sepia" : 
 			{
 				"fraction" : true,
-				"index" : 6,
+				"index" : 7,
 				"max" : 1,
 				"min" : 0,
-				"order" : 106,
+				"order" : 107,
 				"precision" : 3,
 				"step" : 0.01,
 				"text" : "Sepia",

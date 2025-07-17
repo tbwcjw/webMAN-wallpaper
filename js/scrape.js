@@ -1,3 +1,4 @@
+let ip = "";
 let baseUrl = "";
 let refreshInterval = 15 * 1000; //default 15 seconds
 
@@ -9,8 +10,9 @@ let hue = 0;
 let brightness = 1;
 let invert = 0;
 
-//custom background
+//custom background, nowplaying
 let customBackground = null;
+let nowPlaying = true;
 
 const xmbvideo = document.getElementById("xmb-bg");
 
@@ -23,6 +25,8 @@ const hdd = document.getElementsByClassName('hdd')[0];
 const fan = document.getElementsByClassName('fan')[0];
 const uptime = document.getElementsByClassName('uptime')[0];
 const syscalls = document.getElementsByClassName('syscalls')[0];
+const appname = document.getElementsByClassName('np-app-name')[0];
+const appimg = document.getElementsByClassName('np-app-img')[0];
 
 // get wallpaper engine api properties
 window.wallpaperPropertyListener = {
@@ -47,6 +51,10 @@ window.wallpaperPropertyListener = {
     }
     applyFilters();
 
+    if(properties.nowplaying) {
+      nowPlaying = properties.nowplaying.value;
+    }
+
     if(properties.custombackground) {
       customBackground = properties.custombackground.value;
       applyCustomBackground();
@@ -54,7 +62,8 @@ window.wallpaperPropertyListener = {
 
     if (properties.ps3ip && properties.ps3ip.value) {
       //require ip only
-      baseUrl = 'http://' + properties.ps3ip.value + '/cpursx.ps3?/sman.ps3';
+      ip = properties.ps3ip.value; //iponly
+      baseUrl = 'http://' + properties.ps3ip.value + '/cpursx.ps3?/sman.ps3'; //sman url
     }
     if (properties.refreshinterval && properties.refreshinterval.value) {
       refreshInterval = properties.refreshinterval.value * 1000;
@@ -131,7 +140,7 @@ async function scrape(baseUrl) {
     '/dev_hdd0',
     '/cpursx.ps3?mode',
     '/dev_hdd0/xmlhost/game_plugin/cpursx.html'
-  ];
+];
 
   try {
 
@@ -155,6 +164,21 @@ async function scrape(baseUrl) {
     h1 => h1.textContent.trim().toLowerCase().includes('cfw syscalls already disabled')
   );
 
+  // currently playing img check
+  const imgList = doc.querySelectorAll('img');
+  const icon0Img = Array.from(imgList).find(
+    img => img.getAttribute('src')?.includes('ICON0.PNG')
+  );
+  if (icon0Img) {
+    results.imgPath = 'http://' + ip + icon0Img.getAttribute('src');
+  }
+
+  //app name
+  const googleLink = Array.from(doc.querySelectorAll('a')).find(a =>
+    a.getAttribute('href')?.startsWith('http://google.com/search?q=')
+  );
+  if (googleLink) results.appName = googleLink.textContent.trim();
+
   for (const href of hrefList) {
     // skip those we already have values for
     if (
@@ -176,10 +200,9 @@ async function scrape(baseUrl) {
       results[href] = null;
       continue;
     }
-
-    
-    //cpu/rsx celcius
     switch (true) {
+      //currently playing appname
+
       case href === '/cpursx.ps3?up': {
         const cpu = text.match(/CPU:\s*(\d+)°C\s*\(MAX:\s*(\d+)°C\)/);
         const rsx = text.match(/RSX:\s*(\d+)°C/);
@@ -269,14 +292,15 @@ function initMonitoring() {
       r.innerHTML = `RSX: ${systemStats.rsxC ?? 0}°C (${systemStats.rsxF ?? 0}°F)`;
       mem.innerHTML = `MEM: ${systemStats.memKB ?? "0000"}KB FREE`;
       hdd.innerHTML = `HDD: ${systemStats.hddGBFree ?? "0"}GB FREE`;
-      fan.innerHTML = `FAN: ${systemStats.fanSpeedPercent ?? 0}%`;
+      fan.innerHTML = `FAN SPEED: ${systemStats.fanSpeedPercent ?? 0}%`;
       uptime.innerHTML = `UPTIME: ${systemStats.uptime ?? "00:00:00"}`;
       syscalls.innerHTML = systemStats.syscallsDisabled ? 'SYSCALLS DISABLED' : '';
-
+      appname.innerHTML = systemStats.appName ?? "";
+      appimg.src = systemStats.imgPath ?? "";
     } catch (error) {
       console.error('fetch error:', error);
       //blank innerhtmls
-      setError(`${error}`)
+      setError(`AWAITING CONNECTION...`) //clean message for the folks
     } finally {
       setTimeout(fetch, refreshInterval);
     }
