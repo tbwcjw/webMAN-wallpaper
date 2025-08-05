@@ -118,10 +118,33 @@ function applyFilters() {
   `.trim();
 }
 
+function uptimeFormat(seconds) {
+  const hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
+  const mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+  const secs = String(seconds % 60).padStart(2, '0');
+  return `${hrs}:${mins}:${secs}`;
+}
+
+function startUptimeTicker() {
+  if (uptimeTimer) return; // already ticking
+
+  uptime.innerHTML = `UPTIME: ${uptimeFormat(uptimeSeconds)}`;
+  uptimeTimer = setInterval(() => {
+    uptimeSeconds++;
+    uptime.innerHTML = `UPTIME: ${uptimeFormat(uptimeSeconds)}`;
+  }, 1000);
+}
+
+
 //blank all .innerhtmls and display error in c
 function setError(message) {
   c.innerHTML = message;
   r.innerHTML = mem.innerHTML = hdd.innerHTML = fan.innerHTML = syscalls.innerHTML = uptime.innerHTML = appname.innerHTML = appimg.src = '';
+
+  if (uptimeTimer) {
+    clearInterval(uptimeTimer);
+    uptimeTimer = null;
+  }
 }
 
 async function scrape(baseUrl) {
@@ -201,9 +224,9 @@ async function scrape(baseUrl) {
       continue;
     }
     switch (true) {
-      //currently playing appname
+      //cpu/rsx celcius
       case href === '/cpursx.ps3?up': {
-        const cpu = text.match(/CPU:\s*(\d+)°C\s*\(MAX:\s*(\d+)°C\)/);
+        const cpu = text.match(/CPU:\s*(\d+)°C(?:\s*\(MAX:\s*(\d+)°C\))?/); //added flexibility for manual fan control mode (sans 'max')
         const rsx = text.match(/RSX:\s*(\d+)°C/);
         if (cpu) {
           results.cpuC = parseInt(cpu[1], 10);
@@ -214,7 +237,7 @@ async function scrape(baseUrl) {
       }
       //cpu/rsx fahrenheit
       case href === '/cpursx.ps3?dn': {
-        const cpu = text.match(/CPU:\s*(\d+)°F\s*\(MAX:\s*(\d+)°F\)/);
+        const cpu = text.match(/CPU:\s*(\d+)°F(?:\s*\(MAX:\s*(\d+)°F\))?/);
         const rsx = text.match(/RSX:\s*(\d+)°F/);
         if (cpu) {
           results.cpuF = parseInt(cpu[1], 10);
@@ -267,6 +290,11 @@ async function scrape(baseUrl) {
 }
 
 let lock = false;
+let lastStats = {};
+
+let uptimeSeconds = 0;
+let uptimeTimer = null;
+
 
 function initMonitoring() {
   if(lock) return;
@@ -282,18 +310,30 @@ function initMonitoring() {
       if (!systemStats) {
         throw new Error('scrape returned null');
       }
+      
+      //bad values, or no values, we keep the old values.
+      //better than all zeros.
+      for (const key in systemStats) {
+        if (systemStats[key] != null) {
+          lastStats[key] = systemStats[key];
+        }
+      }
 
-      console.log(systemStats);
-      // console.log(new Date().toLocaleTimeString());
-      // console.log(systemStats);
+      c.innerHTML = `CELL: ${lastStats.cpuC}°C (${lastStats.cpuF}°F)`;
+      r.innerHTML = `RSX: ${lastStats.rsxC}°C (${lastStats.rsxF}°F)`;
+      mem.innerHTML = `MEM: ${lastStats.memKB}KB FREE`;
+      hdd.innerHTML = `HDD: ${lastStats.hddGBFree}GB FREE`;
+      fan.innerHTML = `FAN SPEED: ${lastStats.fanSpeedPercent}%`;
+      if (systemStats.uptime) {
+        const [hrs, mins, secs] = systemStats.uptime.split(":").map(Number);
+        uptimeSeconds = hrs * 3600 + mins * 60 + secs;
 
-      c.innerHTML = `CELL: ${systemStats.cpuC ?? 0}°C (${systemStats.cpuF ?? 0}°F)`;
-      r.innerHTML = `RSX: ${systemStats.rsxC ?? 0}°C (${systemStats.rsxF ?? 0}°F)`;
-      mem.innerHTML = `MEM: ${systemStats.memKB ?? "0000"}KB FREE`;
-      hdd.innerHTML = `HDD: ${systemStats.hddGBFree ?? "0"}GB FREE`;
-      fan.innerHTML = `FAN SPEED: ${systemStats.fanSpeedPercent ?? 0}%`;
-      uptime.innerHTML = `UPTIME: ${systemStats.uptime ?? "00:00:00"}`;
-      syscalls.innerHTML = systemStats.syscallsDisabled ? 'SYSCALLS DISABLED' : '';
+        uptime.innerHTML = `UPTIME: ${uptimeFormat(uptimeSeconds)}`;
+        
+        startUptimeTicker();
+      }
+
+      syscalls.innerHTML = lastStats.syscallsDisabled ? 'SYSCALLS DISABLED' : '';
 
       if(nowPlaying) {
         appname.innerHTML = systemStats.appName ?? "";
